@@ -18,13 +18,13 @@
 [files]
 # Uncomment examples below
 dotsyncrc
-#ack/ackrc
+ack/ackrc
 #bin:bin
 #ctags/ctags
 #curl/curlrc
-#git/gitconfig
-#git/gitignore
-#git/gitattributes
+git/gitconfig
+git/gitignore
+git/gitattributes
 #git/tigrc
 #git/gitk
 #gnupg
@@ -53,19 +53,19 @@ dotsyncrc
 #subversion
 #task/task
 #task/taskrc
-#tmux/tmux.conf
-#tmux/tmuxinator
-#vim/dotvim:.vim
-#vim/vimrc
-#vim/gvimrc
+tmux/tmux.conf
+tmux/tmuxinator
+vim/dotvim:.vim
+vim/vimrc
+vim/gvimrc
 #wget/wgetrc
-#zsh/fasdrc
-#zsh/dotzsh:.zsh
-#zsh/zlogin
-#zsh/zlogout
-#zsh/zprofile
-#zsh/zshenv
-#zsh/zshrc
+zsh/fasdrc
+zsh/dotzsh:.zsh
+zsh/zlogin
+zsh/zlogout
+zsh/zprofile
+zsh/zshenv
+zsh/zshrc
 [endfiles]
 
 # Hosts to sync
