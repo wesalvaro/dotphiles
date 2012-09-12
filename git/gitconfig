@@ -9,8 +9,8 @@
 
 # Global Config
 [user]
-  name = "**Your Name**"
-  email = "**Your Email**"
+  name = "Wes Alvaro"
+  email = "wesalvaro@google.com"
   #signingkey = **Your GPG ID**
 
 [branch "master"]
@@ -103,6 +103,7 @@
   a  = add
   ia = add
   ir = reset
+  rhh = reset --hard HEAD
 
   # log
   l   = log --topo-order --pretty=format:'%C(yellow)%h %C(cyan)%cn %C(blue)%cr%C(reset) %s'
@@ -121,3 +122,30 @@
   rex = remote rm
   rem = remote rename
 
+[core]
+  excludesfile = /home/wesalvaro/.gitignore
+
+[diff]
+  tool = diffmerge
+
+[merge]
+  tool = p4merge
+
+[mergetool "meld"]
+  cmd = /home/wesalvaro/third_party/meld-1.6.0/bin/meld "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+  keepTemporaries = false
+  trustExitCode = false
+  keepBackup = false
+
+[mergetool "p4merge"]
+  cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+  keepTemporaries = false
+  trustExitCode = false
+  keepBackup = false
+
+[mergetool "diffmerge"]
+  cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
+  trustExitCode = false
+
+[difftool "diffmerge"]
+  cmd = diffmerge \"$LOCAL\" \"$REMOTE\"

@@ -16,12 +16,120 @@ if has("user_commands")
   set rtp+=~/.vim/bundle/vundle/
   call vundle#rc()
   "let g:vundles=['general', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc']
-  let g:vundles=['general']
+  let g:vundles=['general', 'python', 'programming', 'javascript', 'html', 'misc']
   " Load 'vundles'
   source ~/.vim/vundles.vim
   " Add extra bundles here...
-  " Bundle 'reponame'
+  Bundle 'syntastic'
+  Bundle 'vim-powerline'
 endif
 
 " Customize to your needs...
+au BufNewFile,BufRead *.djt set filetype=html
+
+set nocompatible
+filetype off
+
+" Google Stuffs
+source /usr/share/vim/google/google.vim
+
+set tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab
+
+" Store to a common file for copy/paste functionality
+map \d :w! ~/.vim.tmp<cr>d<cr>
+map \y :w! ~/.vim.tmp<cr>
+map \p :r ~/.vim.tmp<cr>
+vmap > >gv
+vmap < <gv
+nnoremap Q @q
+nnoremap _ ggY``P
+
+" hilite after 80
+if exists('+colorcolumn')
+  "set colorcolumn=81  "ugly because it colors full column
+  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%<82v.\%>81v', -1)
+  "au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+endif
+
+" Folding options
+set foldmethod=indent
+nnoremap <space> za
+vnoremap <space> zf
+hi Folded ctermfg=darkblue
+hi Folded ctermbg=black
+set foldcolumn=0
+highlight! link FoldColumn Normal
+
+" Highlight Search Predicate
+set hlsearch
+set hl=l:Visual
+set incsearch
+highlight NonText ctermfg=black
+
+set ruler
+set ignorecase smartcase incsearch
+set nolazyredraw
+set magic
+set showmatch
+set noerrorbells novisualbell
+set nobackup nowb noswapfile
+set ai si wrap
+
+map <Esc>[Z <s-tab>
+
+" Tabbing
+set showtabline=2
+map <Tab> :tabnext<cr>
+map <S-Tab> :tabprevious<cr>
+
+nmap <C-t> :tabnew<cr>
+nmap <C-w> :tabclose<cr>
+map <C-t> :tabnew<cr>
+map <C-w> :tabclose<cr>
+imap <C-t> <Esc>:tabnew<cr>i
+
+" Omnicomplete
+inoremap <A-space> <C-x><C-o>
+
+
+" Spelling
+hi clear SpellBad
+hi SpellBad term=standout cterm=underline
+hi clear SpellCap "term=standout ctermfg=blue cterm=underline
+hi SpellRare term=standout ctermfg=1 cterm=underline
+hi SpellLocal term=standout ctermfg=1 cterm=underline
+set spell
+
+" Split work
+set mousefocus
+nmap <silent> <C-h> :wincmd h<CR>
+nmap <silent> <C-j> :wincmd j<CR>
+nmap <silent> <C-k> :wincmd k<CR>
+nmap <silent> <C-l> :wincmd l<CR>
+
+" Settings for Tag List
+let Tlist_Use_Split_Window = 1
+let Tlist_Enable_Fold_Column = 0
+
+" Resize buffers
+nmap e+ :vertical res +2<cr>
+nmap e- :vertical res -2<cr>
+map + :resize +1<cr>
+map - :resize -1<cr>
+
+" Undo in insert mode. CTRL+Z
+inoremap <c-z> <c-o>u
+
+" Python Settings
+"autocmd FileType python compiler pylint
+"autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+
+" Powerline
+let g:Powerline_symbols = 'fancy'
+set laststatus=2
+set term=screen-256color
+
+" NERDTree
+autocmd vimenter * if !argc() | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 

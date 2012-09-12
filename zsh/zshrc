@@ -9,11 +9,11 @@
 #
 
 # Set the key mapping style to 'emacs' or 'vi'.
-zstyle ':dotzsh:module:editor' keymap 'emacs'
+zstyle ':dotzsh:module:editor' keymap 'vi'
 zstyle ':dotzsh:module:editor' editor 'vi'
 
 # Auto convert .... to ../..
-zstyle ':dotzsh:module:editor' dot-expansion 'no'
+zstyle ':dotzsh:module:editor' dot-expansion 'yes'
 
 # Set case-sensitivity for completion, history lookup, etc.
 zstyle ':dotzsh:module:*' case-sensitive 'no'
@@ -64,3 +64,59 @@ source "$DOTZSH/init.zsh"
 
 # Customize to your needs...
 
+## Uncategorized Aliases ##########
+alias vi="vim -p"
+
+## ZSH Highlighting ##########
+source /home/wesalvaro/third_party/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+ZSH_HIGHLIGHT_PATTERNS+=('\|' fg=magenta,bold)
+zle_highlight=(region:standout special:standout suffix:bold isearch:underline)
+
+## TMUX ##########
+alias tmux='/home/wesalvaro/third_party/tmux/tmux-1.6/tmux'
+alias xa='tmux at -t'
+alias xd='tmux at -d -t'
+alias xs='tmux new -s'
+alias xls='tmux ls'
+alias xl='tmux at'
+
+## Git ##########
+export GIT_CEILING_DIRECTORIES=/home/wesalvaro/src
+alias g=git
+alias gm="git5 merge"
+alias b='git checkout -b'
+alias lsb='git branch'
+alias rmb='git branch -D'
+alias mvb='git branch -m'
+alias unci='git reset --soft HEAD~1'
+alias cancel='git reset --hard HEAD'
+alias rollback='git reset --hard HEAD~1'
+alias co='git checkout'
+function ca {
+  local f="/home/wesalvaro/commits"
+  if git commit -a -m "$1" >> $f; then
+    echo "$(date) [$PWD]" >> $f
+    echo >> $f
+    tail -n5 $f
+  fi;
+}
+function ci {
+  local f="/home/wesalvaro/commits"
+  if git commit -m "$1" >> $f; then
+    echo $(date) [$PWD] >> $f
+    echo >> $f
+    tail -n5 $f
+  fi;
+}
+
+# Z
+. ~/third_party/z/z.sh
+function precmd () {
+  _z --add "$(pwd -P)"
+}
+
+## Google Proprietary ##########
+if test -f ~/.zsh-goog; then
+  source ~/.zsh-goog
+fi;
