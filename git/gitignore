@@ -45,4 +45,6 @@ Thumbs.db
 svn-commit.*
 tags
 TAGS
-
+*.iml
+*.ipr
+*.iws

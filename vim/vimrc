@@ -20,8 +20,10 @@ if has("user_commands")
   " Load 'vundles'
   source ~/.vim/vundles.vim
   " Add extra bundles here...
-  Bundle 'syntastic'
-  Bundle 'vim-powerline'
+  Bundle 'numbers'
+  "Bundle 'syntastic'
+  "Bundle 'vim-powerline'
+  "Bundle 'neocomplcache'
 endif
 
 " Customize to your needs...
@@ -43,6 +45,7 @@ vmap > >gv
 vmap < <gv
 nnoremap Q @q
 nnoremap _ ggY``P
+nnoremap ; :
 
 " hilite after 80
 if exists('+colorcolumn')
@@ -96,6 +99,7 @@ inoremap <A-space> <C-x><C-o>
 hi clear SpellBad
 hi SpellBad term=standout cterm=underline
 hi clear SpellCap "term=standout ctermfg=blue cterm=underline
+hi SpellCap term=standout ctermfg=blue cterm=underline
 hi SpellRare term=standout ctermfg=1 cterm=underline
 hi SpellLocal term=standout ctermfg=1 cterm=underline
 set spell
@@ -130,6 +134,14 @@ set laststatus=2
 set term=screen-256color
 
 " NERDTree
-autocmd vimenter * if !argc() | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"autocmd vimenter * if !argc() | NERDTree | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+" Syntastic
+let g:syntastic_error_symbol='✖✖'
+let g:syntastic_style_error_symbol='♦✖'
+let g:syntastic_warning_symbol='✚✚'
+let g:syntastic_style_warning_symbol='♦✚'
+let g:syntastic_mode_map = { 'mode': 'active',
+                           \ 'active_filetypes': [],
+                           \ 'passive_filetypes': [] }

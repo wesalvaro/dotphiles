@@ -48,7 +48,11 @@ zstyle ':dotzsh:load' dzmodule \
   'history' \
   'utility' \
   'completion' \
-  'theme'
+  'theme' \
+  'syntax-highlighting' \
+  'history-substring-search' \
+  'git' \
+  'z'
 
 # Set the theme to load.
 # Setting it to 'random' loads a random theme.
@@ -64,14 +68,29 @@ source "$DOTZSH/init.zsh"
 
 # Customize to your needs...
 
+## Directory Helpers ##########
+function stash {
+  rm ~/.snatch-files/* -rf
+  cp $@ ~/.snatch-files/. -rf
+}
+function unstash {
+  cp ~/.snatch-files/* . -rf
+}
+function snip {
+  head -n$2 $3 | tail -n$(expr $2 - $1)
+}
+function sd {
+  echo $PWD > ~/.stored-directory
+  echo Stored $PWD
+}
+function rd {
+  local dir=`cat ~/.stored-directory`
+  echo Resumed $dir
+  cd $dir
+}
+
 ## Uncategorized Aliases ##########
 alias vi="vim -p"
-
-## ZSH Highlighting ##########
-source /home/wesalvaro/third_party/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
-ZSH_HIGHLIGHT_PATTERNS+=('\|' fg=magenta,bold)
-zle_highlight=(region:standout special:standout suffix:bold isearch:underline)
 
 ## TMUX ##########
 alias tmux='/home/wesalvaro/third_party/tmux/tmux-1.6/tmux'
@@ -83,16 +102,18 @@ alias xl='tmux at'
 
 ## Git ##########
 export GIT_CEILING_DIRECTORIES=/home/wesalvaro/src
-alias g=git
-alias gm="git5 merge"
-alias b='git checkout -b'
 alias lsb='git branch'
-alias rmb='git branch -D'
 alias mvb='git branch -m'
-alias unci='git reset --soft HEAD~1'
-alias cancel='git reset --hard HEAD'
+alias rmb='git branch -D'
 alias rollback='git reset --hard HEAD~1'
+alias unci='git reset --soft HEAD~1'
+alias a='git camend'
+alias aa='git camend -a'
+alias amend='git camend -a'
+alias b='git checkout -b'
+alias cancel='git reset --hard HEAD'
 alias co='git checkout'
+alias g=git
 function ca {
   local f="/home/wesalvaro/commits"
   if git commit -a -m "$1" >> $f; then
@@ -109,14 +130,28 @@ function ci {
     tail -n5 $f
   fi;
 }
-
-# Z
-. ~/third_party/z/z.sh
-function precmd () {
-  _z --add "$(pwd -P)"
+alias tag='git tag -f'
+alias huh='git show-branch'
+function killp {
+  ps ua | grep -i "port=$1" | awk '{ print $2 }' | xargs kill
 }
+alias geeknote='python /home/wesalvaro/third_party/geeknote/geeknote.py'
+function snip {
+  geeknote create --title "$*" -c "$PWD\n`git show-branch`" --tags "snippet" --notebook "Work"
+}
+alias snips='geeknote find'
+
+## Random Scripts ##########
+alias db='/home/wesalvaro/public/db'
+
+## Some ls aliases ##########
+alias ls='ls -la --color'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
 
 ## Google Proprietary ##########
-if test -f ~/.zsh-goog; then
-  source ~/.zsh-goog
+if test -f /home/wesalvaro/.zsh-goog; then
+  source /home/wesalvaro/.zsh-goog
 fi;
+
