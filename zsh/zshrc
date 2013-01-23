@@ -91,9 +91,9 @@ function rd {
 
 ## Uncategorized Aliases ##########
 alias vi="vim -p"
+alias http="python -m SimpleHTTPServer"
 
 ## TMUX ##########
-alias tmux='/home/wesalvaro/third_party/tmux/tmux-1.6/tmux'
 alias xa='tmux at -t'
 alias xd='tmux at -d -t'
 alias xs='tmux new -s'
@@ -101,7 +101,7 @@ alias xls='tmux ls'
 alias xl='tmux at'
 
 ## Git ##########
-export GIT_CEILING_DIRECTORIES=/home/wesalvaro/src
+export GIT_CEILING_DIRECTORIES=/usr/local/google/home/wesalvaro/src
 alias lsb='git branch'
 alias mvb='git branch -m'
 alias rmb='git branch -D'
@@ -151,7 +151,7 @@ alias la='ls -A'
 alias l='ls -CF'
 
 ## Google Proprietary ##########
-if test -f /home/wesalvaro/.zsh-goog; then
-  source /home/wesalvaro/.zsh-goog
+if test -f /usr/local/google/home/wesalvaro/.zsh-goog; then
+  source /usr/local/google/home/wesalvaro/.zsh-goog
 fi;
 

@@ -123,7 +123,7 @@
   rem = remote rename
 
 [core]
-  excludesfile = /home/wesalvaro/.gitignore
+  excludesfile = /usr/local/google/home/wesalvaro/.gitignore
 
 [diff]
   tool = diffmerge

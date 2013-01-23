@@ -8,7 +8,7 @@
 #
 
 # Set the path to dotzsh.
-export DOTZSH="/home/wesalvaro/.zsh"
+export DOTZSH="/usr/local/google/home/wesalvaro/.zsh"
 
 # Source environment settings
 source "$DOTZSH/env.zsh"
