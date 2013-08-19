@@ -7,6 +7,7 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #   Ben O'Hara <bohara@gmail.com>
 #
+echo "Parsing zshrc..."
 
 # Set the key mapping style to 'emacs' or 'vi'.
 zstyle ':dotzsh:module:editor' keymap 'vi'
@@ -42,6 +43,7 @@ zstyle ':dotzsh:load' zfunction 'zargs' 'zmv'
 # Set the dotzsh modules to load (browse modules).
 # The order matters.
 zstyle ':dotzsh:load' dzmodule \
+  'aliaster' \
   'environment' \
   'terminal' \
   'editor' \
@@ -49,10 +51,10 @@ zstyle ':dotzsh:load' dzmodule \
   'utility' \
   'completion' \
   'theme' \
-  'syntax-highlighting' \
   'history-substring-search' \
-  'git' \
   'z'
+  #'syntax-highlighting' \
+  #'git' \
 
 # Set the theme to load.
 # Setting it to 'random' loads a random theme.
@@ -63,18 +65,20 @@ zstyle ':dotzsh:module:theme' theme 'dotphiles'
 #zstyle ':dotzsh:module:theme:host:hostname2.example2.com' theme 'dotphiles' 'soldark' 'violet'
 #zstyle ':dotzsh:module:theme:domain:example.net' theme 'dotphiles' 'soldark' 'red'
 
+echo "Loading .zsh..."
 # Load dotzsh
 source "$DOTZSH/init.zsh"
+echo "Loaded .zsh."
 
 # Customize to your needs...
 
 ## Directory Helpers ##########
 function stash {
-  rm ~/.snatch-files/* -rf
-  cp $@ ~/.snatch-files/. -rf
+  rm -rf ~/.snatch-files/*
+  cp -rf $@ ~/.snatch-files/.
 }
 function unstash {
-  cp ~/.snatch-files/* . -rf
+  cp -rf ~/.snatch-files/* .
 }
 function snip {
   head -n$2 $3 | tail -n$(expr $2 - $1)
@@ -88,10 +92,18 @@ function rd {
   echo Resumed $dir
   cd $dir
 }
+function kgrep {
+  pgrep -f $@ | xargs kill
+}
 
 ## Uncategorized Aliases ##########
 alias vi="vim -p"
 alias http="python -m SimpleHTTPServer"
+alias ack="ack-grep"
+alias py='ipython'
+alias db='/home/wesalvaro/public/db'
+alias csslint="node ~/.npm/csslint/0.9.10/package/cli.js"
+alias geeknote='python /home/wesalvaro/third_party/geeknote/geeknote.py'
 
 ## TMUX ##########
 alias xa='tmux at -t'
@@ -135,14 +147,13 @@ alias huh='git show-branch'
 function killp {
   ps ua | grep -i "port=$1" | awk '{ print $2 }' | xargs kill
 }
-alias geeknote='python /home/wesalvaro/third_party/geeknote/geeknote.py'
 function snip {
   geeknote create --title "$*" -c "$PWD\n`git show-branch`" --tags "snippet" --notebook "Work"
 }
 alias snips='geeknote find'
 
 ## Random Scripts ##########
-alias db='/home/wesalvaro/public/db'
+export GOPATH=~/gocode
 
 ## Some ls aliases ##########
 alias ls='ls -la --color'
@@ -151,7 +162,15 @@ alias la='ls -A'
 alias l='ls -CF'
 
 ## Google Proprietary ##########
+echo "Parsing zsh-goog..."
 if test -f /usr/local/google/home/wesalvaro/.zsh-goog; then
   source /usr/local/google/home/wesalvaro/.zsh-goog
 fi;
+echo "Parsed zsh-goog."
 
+## PhantomJS ##########
+PATH=$PATH:/usr/local/google/home/wesalvaro/third_party/phantomjs-1.8.2-linux-x86_64/bin
+
+## Node ##########
+[[ -s /usr/local/google/home/wesalvaro/.nvm/nvm.sh ]] && . /usr/local/google/home/wesalvaro/.nvm/nvm.sh # This loads NVM
+echo "Parsed zshrc."
