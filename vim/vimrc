@@ -145,3 +145,9 @@ let g:syntastic_style_warning_symbol='♦✚'
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
                            \ 'passive_filetypes': [] }
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+colorscheme solarized
+
+" Tern (JavaScript Parser)
+" so /usr/local/google/home/wesalvaro/third_party/tern/vim/tern.vim
