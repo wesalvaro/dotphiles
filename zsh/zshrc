@@ -7,7 +7,6 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #   Ben O'Hara <bohara@gmail.com>
 #
-echo "Parsing zshrc..."
 
 # Set the key mapping style to 'emacs' or 'vi'.
 zstyle ':dotzsh:module:editor' keymap 'vi'
@@ -65,10 +64,8 @@ zstyle ':dotzsh:module:theme' theme 'dotphiles'
 #zstyle ':dotzsh:module:theme:host:hostname2.example2.com' theme 'dotphiles' 'soldark' 'violet'
 #zstyle ':dotzsh:module:theme:domain:example.net' theme 'dotphiles' 'soldark' 'red'
 
-echo "Loading .zsh..."
 # Load dotzsh
 source "$DOTZSH/init.zsh"
-echo "Loaded .zsh."
 
 # Customize to your needs...
 
@@ -127,7 +124,7 @@ alias cancel='git reset --hard HEAD'
 alias co='git checkout'
 alias g=git
 function ca {
-  local f="/home/wesalvaro/commits"
+  local f="~/commits"
   if git commit -a -m "$1" >> $f; then
     echo "$(date) [$PWD]" >> $f
     echo >> $f
@@ -135,7 +132,7 @@ function ca {
   fi;
 }
 function ci {
-  local f="/home/wesalvaro/commits"
+  local f="~/commits"
   if git commit -m "$1" >> $f; then
     echo $(date) [$PWD] >> $f
     echo >> $f
@@ -162,15 +159,12 @@ alias la='ls -A'
 alias l='ls -CF'
 
 ## Google Proprietary ##########
-echo "Parsing zsh-goog..."
 if test -f /usr/local/google/home/wesalvaro/.zsh-goog; then
   source /usr/local/google/home/wesalvaro/.zsh-goog
 fi;
-echo "Parsed zsh-goog."
 
 ## PhantomJS ##########
 PATH=$PATH:/usr/local/google/home/wesalvaro/third_party/phantomjs-1.8.2-linux-x86_64/bin
 
 ## Node ##########
 [[ -s /usr/local/google/home/wesalvaro/.nvm/nvm.sh ]] && . /usr/local/google/home/wesalvaro/.nvm/nvm.sh # This loads NVM
-echo "Parsed zshrc."
